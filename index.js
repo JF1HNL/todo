@@ -3,19 +3,28 @@ let sw_flag = true;
 let i = 0;
 
 class cl_item{
-    constructor(ele,but_ele,content,i,rm_flag){
-        this.ele = ele;
-        this.but_ele = but_ele;
+    constructor(content,rm_flag){
+        this.ele = document.createElement('div');
+        this.but_ele = document.createElement('input');
         this.content = content;
         this.rm_flag = rm_flag;
-        this.num = i;
         this.ele.innerText = this.content;
         this.ele.class = 'item';
+        this.create_button();
+    }
+    create_button(){
         this.but_ele.class = 'button';
         this.but_ele.type = 'button';
+        if(this.rm_flag){
+            this.but_ele.value = 'done!';
+        }else{
+            this.but_ele.value = 'undone!';
+        }
+        this.but_ele.addEventListener('click',this.press_button());
+        this.ele.appendChild(this.but_ele);
     }
-    button(){
-        this.but_ele.addEventListener('click', () =>{
+    press_button(){
+        return () => {
             if(this.rm_flag === true){
                 this.ele.style.textDecoration = 'line-through';
                 this.but_ele.value = 'undone!';
@@ -28,7 +37,7 @@ class cl_item{
                 this.rm_flag = true;
                 this.but_ele.value = 'done!'
             }
-        })
+        }
     }
 }
 
@@ -37,12 +46,10 @@ let item = [];
 const field = document.querySelector('#field');
 field.addEventListener('change', () => {
     i++;
-    item[i] = new cl_item(document.createElement('div'),document.createElement('input'),field.value,i,true);
+    item[i] = new cl_item(field.value,true);
     list.appendChild(item[i].ele);
-    item[i].but_ele.value = 'done!';
-    item[i].ele.appendChild(item[i].but_ele);
     field.value = '';
-    item[i].button();
+    //item[i].button();
 })
 
 const switching = document.querySelector('#switching')
@@ -67,16 +74,16 @@ switching.addEventListener('click', () =>{
                 }
             }
             for(let j = 1; j <= i; j++){
-                item[j] = new cl_item(document.createElement('div'),document.createElement('input'),item[j].content,j,item[j].rm_flag);
+                //item[j] = new cl_item(document.createElement('div'),document.createElement('input'),item[j].content,item[j].rm_flag);
                 list.appendChild(item[j].ele);
-                if(item[j].rm_flag === true){
+                /*if(item[j].rm_flag === true){
                     item[j].but_ele.value = 'done!';
                 }else{
                     item[j].but_ele.value = 'undone!';
                     item[j].ele.style.textDecoration = 'line-through';
                 }
-                item[j].ele.appendChild(item[j].but_ele);
-                item[j].button();
+                item[j].ele.appendChild(item[j].but_ele);*/
+                //item[j].button();
             }
         }
     }
