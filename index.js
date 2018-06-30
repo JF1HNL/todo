@@ -1,7 +1,36 @@
 const list = document.querySelector('#list');
-
 let sw_flag = true;
+let i = 0;
+let memory = [];
+let rm_flag = [];
 const field = document.querySelector('#field');
+field.addEventListener('change', () => {
+    i++;
+    let item = document.createElement('div');
+    item.setAttribute('class','item');
+    item.innerText = field.value;
+    memory[i] = field.value;
+    rm_flag[i] = true;
+    list.appendChild(item);
+    const button = document.createElement('input');
+    button.addEventListener('click', () =>{
+        if(rm_flag[] == true){
+            item.style.textDecoration = 'line-through';
+            button.value = 'undone!';
+            flag = false;
+            if(sw_flag == false){
+                memory = item.innerText;
+                list.removeChild(item);
+            }
+        }else{
+            item.style.textDecoration = '';
+            flag = true;
+            button.value = 'done!'
+        }
+    })
+})
+
+/*const field = document.querySelector('#field');
 field.addEventListener('change', () =>{
     let item = document.createElement('div');
     item.setAttribute('class','item');
