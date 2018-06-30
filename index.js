@@ -3,61 +3,124 @@ let sw_flag = true;
 let i = 0;
 let memory = [];
 let rm_flag = [];
+let button = [];
+let item = [];
 const field = document.querySelector('#field');
 field.addEventListener('change', () => {
     i++;
-    let item = document.createElement('div');
-    item.setAttribute('class','item');
-    item.innerText = field.value;
+    item[i] = document.createElement('div');
+    item[i].setAttribute('class','item');
+    item[i].innerText = field.value;
     memory[i] = field.value;
     rm_flag[i] = true;
-    list.appendChild(item);
-    const button = document.createElement('input');
-    button.addEventListener('click', () =>{
-        if(rm_flag[] == true){
-            item.style.textDecoration = 'line-through';
-            button.value = 'undone!';
-            flag = false;
+    list.appendChild(item[i]);
+    button[i] = document.createElement('input');
+    button[i].setAttribute('class','button');
+    button[i].setAttribute('type','button');
+    button[i].setAttribute('value','done!');
+    item[i].appendChild(button[i]);
+    field.value = '';
+    let k = i;
+    button[k].addEventListener('click', () =>{
+        if(rm_flag[k] == true){
+            item[k].style.textDecoration = 'line-through';
+            button[k].value = 'undone!';
+            rm_flag[k] = false;
             if(sw_flag == false){
-                memory = item.innerText;
-                list.removeChild(item);
+                list.removeChild(item[k]);
             }
         }else{
-            item.style.textDecoration = '';
-            flag = true;
-            button.value = 'done!'
+            item[k].style.textDecoration = '';
+            rm_flag[k] = true;
+            button[k].value = 'done!'
         }
     })
 })
 
+const switching = document.querySelector('#switching')
+switching.addEventListener('click', () =>{
+    if(sw_flag == true){
+        sw_flag = false;
+        switching.value = 'show';
+        if(i > 0){
+            for(let j = 1; j <= i; j++){
+                if(rm_flag[j] == false){
+                    list.removeChild(item[j]);
+                }
+            }
+        }
+    }else{
+        sw_flag = true;
+        switching.value = 'unshow';
+        if(i > 0){
+            for(let j = 1; j <= i; j++){
+                if(rm_flag[j] == true){
+                    list.removeChild(item[j]);
+                }
+            }
+            for(let j = 1; j <= i; j++){
+                item[j] = document.createElement('div');
+                item[j].setAttribute('class','item');
+                item[j].innerText = memory[j];
+                list.appendChild(item[j]);
+                button[j] = document.createElement('input');
+                button[j].setAttribute('class','button');
+                button[j].setAttribute('type','button');
+                item[j].appendChild(button[j]);
+                if(rm_flag[j] == true){
+                    button[j].setAttribute('value','done!');
+                }else{
+                    button[j].setAttribute('value','undone!');
+                    item[j].style.textDecoration = 'line-through';
+                }
+                let k = j;
+                button[k].addEventListener('click', () =>{
+                    if(rm_flag[k] == true){
+                        item[k].style.textDecoration = 'line-through';
+                        button[k].value = 'undone!';
+                        rm_flag[k] = false;
+                        if(sw_flag == false){
+                            list.removeChild(item[k]);
+                        }
+                    }else{
+                        item[k].style.textDecoration = '';
+                        rm_flag[k] = true;
+                        button[k].value = 'done!'
+                    }
+                })
+            }
+        }
+    }
+})
+
 /*const field = document.querySelector('#field');
 field.addEventListener('change', () =>{
-    let item = document.createElement('div');
-    item.setAttribute('class','item');
-    item.innerText = field.value;
-    list.appendChild(item);
-    const button = document.createElement('input');
+    let item[i] = document.createElement('div');
+    item[i].setAttribute('class','item[i]');
+    item[i].innerText = field.value;
+    list.appendChild(item[i]);
+    const button[i] = document.createElement('input');
     let flag = true;
-    button.setAttribute('class','button');
-    button.setAttribute('type','button');
-    item.appendChild(button);   
-    button.addEventListener('click', () =>{
-        // list.removeChild(item);
+    button[i].setAttribute('class','button[i]');
+    button[i].setAttribute('type','button[i]');
+    item[i].appendChild(button[i]);   
+    button[i].addEventListener('click', () =>{
+        // list.removeChild(item[i]);
         if(flag == true){
-            item.style.textDecoration = 'line-through';
-            button.value = 'undone!';
+            item[i].style.textDecoration = 'line-through';
+            button[i].value = 'undone!';
             flag = false;
             if(sw_flag == false){
-                memory = item.innerText;
-                list.removeChild(item);
+                memory = item[i].innerText;
+                list.removeChild(item[i]);
             }
         }else{
-            item.style.textDecoration = '';
+            item[i].style.textDecoration = '';
             flag = true;
-            button.value = 'done!'
+            button[i].value = 'done!'
         }
     })
-    button.value = 'done!'
+    button[i].value = 'done!'
     field.value = '';
 
     let memory = '';
@@ -65,8 +128,8 @@ field.addEventListener('change', () =>{
     switching.addEventListener('click', () =>{
         if(sw_flag == true){
             if(flag == false){
-                memory = item.innerText;
-                list.removeChild(item);
+                memory = item[i].innerText;
+                list.removeChild(item[i]);
             }
             switching.value="show"
             setTimeout(() => {
@@ -74,33 +137,33 @@ field.addEventListener('change', () =>{
             },0);
         }else{
             
-            item = document.createElement('div');
-            item.setAttribute('class','item');
-            item.innerText = memory;
-            list.appendChild(item);
-            const button = document.createElement('input');
+            item[i] = document.createElement('div');
+            item[i].setAttribute('class','item[i]');
+            item[i].innerText = memory;
+            list.appendChild(item[i]);
+            const button[i] = document.createElement('input');
             flag = false;
-            button.addEventListener('click', () =>{
-                // list.removeChild(item);
+            button[i].addEventListener('click', () =>{
+                // list.removeChild(item[i]);
                 if(flag == true){
-                    item.style.textDecoration = 'line-through';
-                    button.value = 'undone!';
+                    item[i].style.textDecoration = 'line-through';
+                    button[i].value = 'undone!';
                     flag = false;
                     if(sw_flag == false){
-                        memory = item.innerText;
-                        list.removeChild(item);
+                        memory = item[i].innerText;
+                        list.removeChild(item[i]);
                     }
                 }else{
-                    item.style.textDecoration = '';
+                    item[i].style.textDecoration = '';
                     flag = true;
-                    button.value = 'done!'
+                    button[i].value = 'done!'
                 }
             })
-            button.setAttribute('class','button');
-            button.setAttribute('type','button');
-            item.style.textDecoration = 'line-through';
-            button.value = 'undone!'
-            item.appendChild(button);
+            button[i].setAttribute('class','button[i]');
+            button[i].setAttribute('type','button[i]');
+            item[i].style.textDecoration = 'line-through';
+            button[i].value = 'undone!'
+            item[i].appendChild(button[i]);
 
             switching.value="un-show"
             setTimeout(() => {
@@ -113,21 +176,21 @@ field.addEventListener('change', () =>{
 
 /*function done_undone(){   
     if(flag == true){
-        item.style.textDecoration = 'line-through';
-        button.value = 'undone!';
+        item[i].style.textDecoration = 'line-through';
+        button[i].value = 'undone!';
         flag = false;
         if(sw_flag == false){
-            memory = item.innerText;
-            list.removeChild(item);
+            memory = item[i].innerText;
+            list.removeChild(item[i]);
         }
     }else{
-        item.style.textDecoration = '';
+        item[i].style.textDecoration = '';
         flag = true;
-        button.value = 'done!'
+        button[i].value = 'done!'
     } 
 }
 
-function item_remove(){
-    memory = item.innerText;
-    list.removeChild(item);
+function item[i]_remove(){
+    memory = item[i].innerText;
+    list.removeChild(item[i]);
 }*/
