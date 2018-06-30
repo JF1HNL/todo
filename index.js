@@ -4,10 +4,29 @@ let i = 0;
 let memory = [];
 let rm_flag = [];
 let button = [];
+
+class cl_item{
+    constructor(ele,content,i,rm_flag){
+        this.ele = ele;
+        this.content = content;
+        this.rm_flag = rm_flag;
+        this.num = i;
+    }
+    button(){}
+}
+
+
 let item = [];
 const field = document.querySelector('#field');
 field.addEventListener('change', () => {
     i++;
+    item[i] = new cl_item(document.createElement('div'),field.value,i,true);
+
+
+
+
+
+
     item[i] = document.createElement('div');
     item[i].setAttribute('class','item');
     item[i].innerText = field.value;
@@ -92,3 +111,8 @@ switching.addEventListener('click', () =>{
         }
     }
 })
+
+///*
+
+
+//*/
