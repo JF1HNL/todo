@@ -49,17 +49,16 @@ field.addEventListener('change', () => {
     item[i] = new cl_item(field.value,true);
     list.appendChild(item[i].ele);
     field.value = '';
-    //item[i].button();
 })
 
 const switching = document.querySelector('#switching')
 switching.addEventListener('click', () =>{
-    if(sw_flag === true){
+    if(sw_flag){
         sw_flag = false;
         switching.value = 'show';
         if(i > 0){
             for(let j = 1; j <= i; j++){
-                if(item[j].rm_flag === false){
+                if(!item[j].rm_flag){
                     list.removeChild(item[j].ele);
                 }
             }
@@ -69,21 +68,12 @@ switching.addEventListener('click', () =>{
         switching.value = 'unshow';
         if(i > 0){
             for(let j = 1; j <= i; j++){
-                if(item[j].rm_flag === true){
+                if(item[j].rm_flag){
                     list.removeChild(item[j].ele);
                 }
             }
             for(let j = 1; j <= i; j++){
-                //item[j] = new cl_item(document.createElement('div'),document.createElement('input'),item[j].content,item[j].rm_flag);
                 list.appendChild(item[j].ele);
-                /*if(item[j].rm_flag === true){
-                    item[j].but_ele.value = 'done!';
-                }else{
-                    item[j].but_ele.value = 'undone!';
-                    item[j].ele.style.textDecoration = 'line-through';
-                }
-                item[j].ele.appendChild(item[j].but_ele);*/
-                //item[j].button();
             }
         }
     }
