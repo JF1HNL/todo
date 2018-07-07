@@ -5,12 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        .cl_done{text-decoration-line: line-through;}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-    <div>
-        <input type="text" id="field">
-        <div id="list"></div>
-        <input type="button" value="unshow" id="switching">
+    <div id="list">
+        <input v-model="title"  @change="add">
+        <ol v-if="show">
+            <li v-for="item in list" @click="done(item)" :class="{cl_done :item.f_done}">
+                {{item.text}}
+            </li>
+        </ol>
+        <ol v-else>
+               <li v-for="item in unshow_list" @click="done(item)" :class="{cl_done :item.f_done}">
+                   {{item.text}}
+               </li>
+        </ol>
+        <button @click="show = !show">
+            {{show ? "unshow!" : "show!"}} 
+        </button>
     </div>
     <script src="index.js"></script>
 </body>
